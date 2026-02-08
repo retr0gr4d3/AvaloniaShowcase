@@ -1,0 +1,725 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:local="using:AvaloniaShowcase.Views"
+             x:Class="AvaloniaShowcase.Views.ShowcasePage">
+
+    <UserControl.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="24" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+        <Style Selector="TextBlock.sectionHeader">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+        <Style Selector="TextBlock.subHeader">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,12,0,8" />
+        </Style>
+        <Style Selector="Expander.codeExpander">
+            <Setter Property="Margin" Value="0,16,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="Border.codeBlock">
+            <Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="16" />
+        </Style>
+        <Style Selector="Border.codeBlock TextBlock">
+            <Setter Property="FontFamily" Value="Cascadia Code,Cascadia Mono,Consolas,Courier New,monospace" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="TextBlock.statusLabel">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Opacity" Value="0.7" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
+        <Style Selector="Button.copyBtn">
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  Padding="36,24">
+        <StackPanel Spacing="4" MaxWidth="960">
+
+            <!-- Page Title -->
+            <TextBlock Text="UI Controls Showcase"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Margin="0,0,0,4" />
+            <TextBlock Text="Interactive examples of all available controls with their XAML source code."
+                       FontSize="14"
+                       Opacity="0.6"
+                       Margin="0,0,0,24" />
+
+            <!-- ==================== BUTTONS ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Buttons" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <Button x:Name="StandardButton" Content="Standard" Margin="0,0,8,8" />
+                        <Button x:Name="AccentButton" Content="Accent" Classes="accent" Margin="0,0,8,8" />
+                        <Button Content="Disabled" IsEnabled="False" Margin="0,0,8,8" />
+                        <HyperlinkButton x:Name="HyperlinkBtn" Content="Hyperlink Button" Margin="0,0,8,8" />
+                        <ToggleButton x:Name="DemoToggleButton" Content="Toggle" Margin="0,0,8,8" />
+                        <SplitButton x:Name="DemoSplitButton" Content="Split Button" Margin="0,0,8,8">
+                            <SplitButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem x:Name="SplitOptA" Header="Option A" />
+                                    <MenuItem x:Name="SplitOptB" Header="Option B" />
+                                    <MenuItem x:Name="SplitOptC" Header="Option C" />
+                                </MenuFlyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
+                        <DropDownButton Content="Dropdown" Margin="0,0,8,8">
+                            <DropDownButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem x:Name="DropItem1" Header="Item 1" />
+                                    <MenuItem x:Name="DropItem2" Header="Item 2" />
+                                    <MenuItem x:Name="DropItem3" Header="Item 3" />
+                                </MenuFlyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                    </WrapPanel>
+
+                    <TextBlock x:Name="ButtonStatus" Classes="statusLabel" Text="Click any button to see its action." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="ButtonsCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyButtonsCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== TEXT INPUT ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Text Input" />
+
+                    <StackPanel Spacing="12" Width="400" HorizontalAlignment="Left">
+                        <TextBox x:Name="DemoTextBox" Watermark="Standard TextBox" />
+                        <TextBlock x:Name="CharCountLabel" Classes="statusLabel"
+                                   Text="Characters: 0" Margin="0" />
+                        <TextBox x:Name="DemoPasswordBox" Watermark="Password" PasswordChar="*" RevealPassword="True" />
+                        <TextBox x:Name="DemoMultilineBox" Watermark="Multiline TextBox"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="80" />
+                        <AutoCompleteBox Watermark="AutoCompleteBox (type a fruit)"
+                                         x:Name="AutoCompleteBoxDemo" />
+                        <TextBlock x:Name="AutoCompleteStatus" Classes="statusLabel"
+                                   Text="No fruit selected." Margin="0" />
+                        <ui:NumberBox x:Name="DemoNumberBox"
+                                      PlaceholderText="NumberBox"
+                                      SpinButtonPlacementMode="Inline"
+                                      Minimum="0"
+                                      Maximum="100"
+                                      Value="42" />
+                        <TextBlock x:Name="NumberBoxStatus" Classes="statusLabel"
+                                   Text="Value: 42" Margin="0" />
+                    </StackPanel>
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="TextInputCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyTextInputCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== SELECTION CONTROLS ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Selection Controls" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,32,16">
+                            <TextBlock Classes="subHeader" Text="CheckBox" />
+                            <CheckBox x:Name="Check1" Content="Option 1" IsChecked="True" />
+                            <CheckBox x:Name="Check2" Content="Option 2" />
+                            <CheckBox x:Name="Check3" Content="Indeterminate" IsChecked="{x:Null}" IsThreeState="True" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,32,16">
+                            <TextBlock Classes="subHeader" Text="RadioButton" />
+                            <RadioButton x:Name="RadioA" Content="Choice A" GroupName="Demo" IsChecked="True" />
+                            <RadioButton x:Name="RadioB" Content="Choice B" GroupName="Demo" />
+                            <RadioButton x:Name="RadioC" Content="Choice C" GroupName="Demo" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,32,16">
+                            <TextBlock Classes="subHeader" Text="ToggleSwitch" />
+                            <ToggleSwitch x:Name="DemoToggleSwitch"
+                                          OnContent="On" OffContent="Off" IsChecked="True" />
+                            <ToggleSwitch OnContent="Enabled" OffContent="Disabled" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <TextBlock x:Name="SelectionStatus" Classes="statusLabel"
+                               Text="Checked: Option 1 | Radio: Choice A | Switch: On" />
+
+                    <TextBlock Classes="subHeader" Text="ComboBox" />
+                    <ComboBox x:Name="DemoComboBox" SelectedIndex="0" Width="200" HorizontalAlignment="Left">
+                        <ComboBoxItem Content="Option 1" />
+                        <ComboBoxItem Content="Option 2" />
+                        <ComboBoxItem Content="Option 3" />
+                        <ComboBoxItem Content="Option 4" />
+                    </ComboBox>
+                    <TextBlock x:Name="ComboStatus" Classes="statusLabel" Text="Selected: Option 1" />
+
+                    <TextBlock Classes="subHeader" Text="ListBox" />
+                    <ListBox x:Name="DemoListBox" MaxHeight="120" Width="200" HorizontalAlignment="Left" SelectionMode="Multiple">
+                        <ListBoxItem Content="Item A" />
+                        <ListBoxItem Content="Item B" IsSelected="True" />
+                        <ListBoxItem Content="Item C" />
+                        <ListBoxItem Content="Item D" IsSelected="True" />
+                        <ListBoxItem Content="Item E" />
+                    </ListBox>
+                    <TextBlock x:Name="ListBoxStatus" Classes="statusLabel" Text="Selected: 2 items" />
+
+                    <TextBlock Classes="subHeader" Text="Slider" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Slider x:Name="DemoSlider" Minimum="0" Maximum="100" Value="60"
+                                Width="300"
+                                TickFrequency="10" IsSnapToTickEnabled="True"
+                                TickPlacement="BottomRight" />
+                        <TextBlock x:Name="SliderValueLabel" Text="60"
+                                   VerticalAlignment="Center" FontWeight="SemiBold" />
+                    </StackPanel>
+                    <Border x:Name="SliderPreview" Height="40" Width="300"
+                            HorizontalAlignment="Left" CornerRadius="4"
+                            Margin="0,8,0,0" Opacity="0.6">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                                <GradientStop Color="{DynamicResource SystemAccentColor}" Offset="0" />
+                                <GradientStop Color="{DynamicResource SystemAccentColorDark2}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="SelectionCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopySelectionCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== PROGRESS ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Progress Indicators" />
+
+                    <TextBlock Classes="subHeader" Text="ProgressBar (Determinate) - drag slider to adjust" />
+                    <ProgressBar x:Name="DemoProgressBar" Value="65" Maximum="100"
+                                 Width="400" HorizontalAlignment="Left" />
+                    <Slider x:Name="ProgressSlider" Minimum="0" Maximum="100" Value="65"
+                            Width="400" HorizontalAlignment="Left" Margin="0,4,0,0" />
+
+                    <TextBlock Classes="subHeader" Text="ProgressBar (Indeterminate) - toggle on/off" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <ProgressBar x:Name="IndeterminateBar" IsIndeterminate="True"
+                                     Width="340" HorizontalAlignment="Left" />
+                        <ToggleSwitch x:Name="IndeterminateToggle"
+                                      OnContent="On" OffContent="Off"
+                                      IsChecked="True" />
+                    </StackPanel>
+
+                    <TextBlock Classes="subHeader" Text="ProgressRing" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,24,0" HorizontalAlignment="Left">
+                            <TextBlock Text="Indeterminate" FontSize="12" Opacity="0.6" Margin="0,0,0,4" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ui:ProgressRing IsIndeterminate="True" Width="40" Height="40" />
+                                <Button x:Name="RingIndeterminateBtn" Content="Show Code"
+                                        VerticalAlignment="Center" Padding="8,4" FontSize="12" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Left">
+                            <TextBlock Text="Determinate (75%)" FontSize="12" Opacity="0.6" Margin="0,0,0,4" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ui:ProgressRing IsIndeterminate="False" Width="40" Height="40" />
+                                <Button x:Name="RingDeterminateBtn" Content="Show Code"
+                                        VerticalAlignment="Center" Padding="8,4" FontSize="12" />
+                            </StackPanel>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="ProgressCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyProgressCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== INFO BAR ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="InfoBar" />
+
+                    <StackPanel Spacing="8">
+                        <ui:InfoBar x:Name="InfoBarInfo" Title="Informational"
+                                    Message="This is an informational message."
+                                    Severity="Informational"
+                                    IsOpen="True"
+                                    IsClosable="True" />
+                        <ui:InfoBar x:Name="InfoBarSuccess" Title="Success"
+                                    Message="Operation completed successfully."
+                                    Severity="Success"
+                                    IsOpen="True"
+                                    IsClosable="True" />
+                        <ui:InfoBar x:Name="InfoBarWarning" Title="Warning"
+                                    Message="Please review before proceeding."
+                                    Severity="Warning"
+                                    IsOpen="True"
+                                    IsClosable="True" />
+                        <ui:InfoBar x:Name="InfoBarError" Title="Error"
+                                    Message="An error has occurred."
+                                    Severity="Error"
+                                    IsOpen="True"
+                                    IsClosable="True" />
+                    </StackPanel>
+
+                    <Button x:Name="ResetInfoBarsButton" Content="Reset All InfoBars"
+                            Margin="0,12,0,0" />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="InfoBarCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyInfoBarCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== TOOLTIPS AND BADGES ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="ToolTips and Badges" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,16,8">
+                            <Button Content="Hover me for ToolTip">
+                                <ToolTip.Tip>
+                                    <TextBlock Text="This is a ToolTip!" />
+                                </ToolTip.Tip>
+                            </Button>
+                            <Button x:Name="ShowSimpleTooltipCode" Content="Show Code"
+                                    Padding="8,4" FontSize="12" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,16,8">
+                            <Button Content="Rich ToolTip">
+                                <ToolTip.Tip>
+                                    <StackPanel>
+                                        <TextBlock Text="Rich ToolTip" FontWeight="Bold" />
+                                        <TextBlock Text="Supports any content inside." />
+                                    </StackPanel>
+                                </ToolTip.Tip>
+                            </Button>
+                            <Button x:Name="ShowRichTooltipCode" Content="Show Code"
+                                    Padding="8,4" FontSize="12" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <TextBlock Classes="subHeader" Text="InfoBadge (click +/- to change count)" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="BadgeDecrement" Content="-" Width="32" />
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="Notifications" VerticalAlignment="Center" />
+                            <ui:InfoBadge x:Name="DemoBadge" Value="3" />
+                        </StackPanel>
+                        <Button x:Name="BadgeIncrement" Content="+" Width="32" />
+                    </StackPanel>
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="BadgesCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyBadgesCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== LAYOUT: EXPANDER ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Expander" />
+
+                    <StackPanel Spacing="8" MaxWidth="500" HorizontalAlignment="Left">
+                        <Expander Header="Click to expand (Down)">
+                            <TextBlock Text="This is the expanded content area. You can put any controls here."
+                                       TextWrapping="Wrap" Margin="8" />
+                        </Expander>
+                        <Expander Header="Initially expanded" IsExpanded="True">
+                            <StackPanel Spacing="8" Margin="8">
+                                <TextBlock Text="Content is visible by default." />
+                                <Button Content="A button inside" />
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="ExpanderCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyExpanderCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== TAB CONTROL ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="TabControl" />
+
+                    <TabControl x:Name="DemoTabControl" MaxWidth="500" HorizontalAlignment="Left">
+                        <TabItem Header="Tab 1">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Content of Tab 1" />
+                                <TextBlock Text="Each tab can hold different content." Opacity="0.6" />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Tab 2">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Content of Tab 2" />
+                                <Button Content="Action" Margin="0,8,0,0" />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Tab 3">
+                            <TextBlock Text="Content of Tab 3" Margin="12" />
+                        </TabItem>
+                    </TabControl>
+                    <TextBlock x:Name="TabStatus" Classes="statusLabel"
+                               Text="Active tab: Tab 1" />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="TabControlCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyTabControlCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== DATE AND TIME ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Date and Time Pickers" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,24,16">
+                            <TextBlock Classes="subHeader" Text="CalendarDatePicker" />
+                            <CalendarDatePicker x:Name="DemoCalendarPicker" Width="300" />
+                        </StackPanel>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,24,16">
+                            <TextBlock Classes="subHeader" Text="DatePicker" />
+                            <DatePicker x:Name="DemoDatePicker" Width="300" />
+                        </StackPanel>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,24,16">
+                            <TextBlock Classes="subHeader" Text="TimePicker" />
+                            <TimePicker x:Name="DemoTimePicker" Width="300" />
+                        </StackPanel>
+                    </WrapPanel>
+                    <TextBlock x:Name="DateTimeStatus" Classes="statusLabel"
+                               Text="Pick a date or time to see the selected value." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="DateTimeCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyDateTimeCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== CONTENT DIALOG ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="ContentDialog" />
+
+                    <TextBlock Text="Click the button below to open a ContentDialog."
+                               Margin="0,0,0,12" Opacity="0.6" />
+                    <Button Content="Show ContentDialog"
+                            Classes="accent"
+                            x:Name="ShowDialogButton" />
+                    <TextBlock x:Name="DialogStatus" Classes="statusLabel"
+                               Text="No dialog result yet." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="DialogCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyDialogCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== FLYOUTS ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="Flyouts" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <Button Content="Button with Flyout" Margin="0,0,12,8">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <StackPanel Spacing="8" Width="200">
+                                        <TextBlock Text="Flyout Content" FontWeight="SemiBold" />
+                                        <TextBlock Text="This flyout appears on click." TextWrapping="Wrap" />
+                                        <Button x:Name="FlyoutActionBtn" Content="Close Flyout"
+                                                Classes="accent" HorizontalAlignment="Stretch" />
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                        <Button Content="Right-click for MenuFlyout" Margin="0,0,12,8">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuItem x:Name="CtxCut" Header="Cut" />
+                                    <MenuItem x:Name="CtxCopy" Header="Copy" />
+                                    <MenuItem x:Name="CtxPaste" Header="Paste" />
+                                    <Separator />
+                                    <MenuItem x:Name="CtxSelectAll" Header="Select All" />
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                    </WrapPanel>
+                    <TextBlock x:Name="FlyoutStatus" Classes="statusLabel"
+                               Text="Click a button or right-click for menu." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="FlyoutsCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyFlyoutsCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== DATA GRID ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="DataGrid" />
+
+                    <TextBlock Text="Click a row to see its details below."
+                               Margin="0,0,0,12" Opacity="0.6" />
+                    <DataGrid x:Name="SampleDataGrid"
+                              x:DataType="local:ProductItem"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              MaxHeight="220"
+                              GridLinesVisibility="Horizontal"
+                              BorderThickness="1"
+                              BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60" x:DataType="local:ProductItem" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" x:DataType="local:ProductItem" />
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="120" x:DataType="local:ProductItem" />
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat='{}{0:C}'}" Width="100" x:DataType="local:ProductItem" />
+                            <DataGridCheckBoxColumn Header="In Stock" Binding="{Binding InStock}" Width="80" x:DataType="local:ProductItem" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock x:Name="DataGridStatus" Classes="statusLabel"
+                               Text="No row selected." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="DataGridCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyDataGridCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== COLOR PICKER ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="ColorPicker (changes app accent color)" />
+
+                    <TextBlock Text="Pick a color to change the app-wide accent color in real-time."
+                               Margin="0,0,0,12" Opacity="0.6" />
+                    <ColorPicker x:Name="DemoColorPicker" HorizontalAlignment="Left" />
+                    <TextBlock x:Name="ColorStatus" Classes="statusLabel"
+                               Text="Current accent: system default" />
+
+                    <Button x:Name="ResetAccentButton" Content="Reset to System Default"
+                            Margin="0,8,0,0" />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="ColorPickerCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyColorPickerCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== ICONS ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="SymbolIcon (click to copy name)" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <Button x:Name="IconHome" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Home" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Home" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconSetting" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Setting" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Setting" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconMail" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Mail" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Mail" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconSave" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Save" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Save" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconDelete" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Delete" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Delete" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconEdit" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Edit" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Edit" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconFind" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Find" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Find" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconPeople" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="People" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="People" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconStar" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Star" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Star" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="IconAlert" Classes="transparent" Margin="0,0,4,8">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:SymbolIcon Symbol="Alert" FontSize="28" HorizontalAlignment="Center" />
+                                <TextBlock Text="Alert" FontSize="11" HorizontalAlignment="Center" Opacity="0.6" />
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                    <TextBlock x:Name="IconStatus" Classes="statusLabel"
+                               Text="Click an icon to copy its symbol name to clipboard." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="IconsCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyIconsCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- ==================== COMMAND BAR ==================== -->
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="sectionHeader" Text="CommandBar" />
+
+                    <ui:CommandBar DefaultLabelPosition="Right">
+                        <ui:CommandBar.PrimaryCommands>
+                            <ui:CommandBarButton x:Name="CmdNew" Label="New" IconSource="Add" />
+                            <ui:CommandBarButton x:Name="CmdOpen" Label="Open" IconSource="OpenFolder" />
+                            <ui:CommandBarButton x:Name="CmdSave" Label="Save" IconSource="Save" />
+                            <ui:CommandBarSeparator />
+                            <ui:CommandBarButton x:Name="CmdDelete" Label="Delete" IconSource="Delete" />
+                        </ui:CommandBar.PrimaryCommands>
+                        <ui:CommandBar.SecondaryCommands>
+                            <ui:CommandBarButton x:Name="CmdSettings" Label="Settings" />
+                            <ui:CommandBarButton x:Name="CmdAbout" Label="About" />
+                        </ui:CommandBar.SecondaryCommands>
+                    </ui:CommandBar>
+                    <TextBlock x:Name="CommandBarStatus" Classes="statusLabel"
+                               Text="Click a command to see which was invoked." />
+
+                    <Expander Classes="codeExpander" Header="View XAML Code">
+                        <Border Classes="codeBlock">
+                            <Grid>
+                                <TextBlock x:Name="CommandBarCode" Margin="0,0,60,0" />
+                                <Button x:Name="CopyCommandBarCode" Content="Copy" Classes="copyBtn" />
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- Bottom spacer -->
+            <Border Height="32" />
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

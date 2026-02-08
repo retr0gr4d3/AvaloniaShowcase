@@ -1,0 +1,42 @@
+<uiw:AppWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:uiw="using:FluentAvalonia.UI.Windowing"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+        x:Class="AvaloniaShowcase.Views.MainWindow"
+        Title="Avalonia UI Showcase"
+        Width="1200" Height="800"
+        MinWidth="800" MinHeight="600">
+
+    <ui:NavigationView x:Name="NavView"
+                       PaneDisplayMode="Left"
+                       IsSettingsVisible="False"
+                       IsBackButtonVisible="False"
+                       IsPaneToggleButtonVisible="True"
+                       OpenPaneLength="220"
+                       SelectionChanged="NavView_SelectionChanged">
+
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItem Content="Home" Tag="HomePage">
+                <ui:NavigationViewItem.IconSource>
+                    <ui:SymbolIconSource Symbol="Home" />
+                </ui:NavigationViewItem.IconSource>
+            </ui:NavigationViewItem>
+            <ui:NavigationViewItem Content="Showcase" Tag="ShowcasePage">
+                <ui:NavigationViewItem.IconSource>
+                    <ui:SymbolIconSource Symbol="ViewAll" />
+                </ui:NavigationViewItem.IconSource>
+            </ui:NavigationViewItem>
+            <ui:NavigationViewItem Content="Playground" Tag="PlaygroundPage">
+                <ui:NavigationViewItem.IconSource>
+                    <ui:SymbolIconSource Symbol="Code" />
+                </ui:NavigationViewItem.IconSource>
+            </ui:NavigationViewItem>
+        </ui:NavigationView.MenuItems>
+
+        <ContentControl x:Name="ContentFrame" />
+
+    </ui:NavigationView>
+</uiw:AppWindow>

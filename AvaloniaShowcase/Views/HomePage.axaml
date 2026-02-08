@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AvaloniaShowcase.Views.HomePage">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Spacing="8" HorizontalAlignment="Center">
+            <TextBlock Text="Welcome"
+                       FontSize="40"
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Select 'Showcase' from the sidebar to explore UI controls."
+                       FontSize="16"
+                       Opacity="0.6"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>

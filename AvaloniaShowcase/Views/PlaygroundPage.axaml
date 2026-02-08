@@ -1,0 +1,185 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="AvaloniaShowcase.Views.PlaygroundPage">
+
+    <UserControl.Styles>
+        <Style Selector="Border.editorPanel">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        <Style Selector="Border.previewPanel">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        <Style Selector="TextBox.codeEditor">
+            <Setter Property="FontFamily" Value="Cascadia Code,Cascadia Mono,Consolas,Courier New,monospace" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="AcceptsTab" Value="True" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="CornerRadius" Value="0,0,8,8" />
+            <Setter Property="Padding" Value="12" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="24,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Top toolbar -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="XAML Playground"
+                           FontSize="24" FontWeight="Bold"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                <ComboBox x:Name="TemplateCombo" Width="200"
+                          PlaceholderText="Load a template..."
+                          SelectionChanged="TemplateCombo_SelectionChanged">
+                    <ComboBoxItem Content="Simple Button" Tag="button" />
+                    <ComboBoxItem Content="Stack of Controls" Tag="stack" />
+                    <ComboBoxItem Content="Card Layout" Tag="card" />
+                    <ComboBoxItem Content="Login Form" Tag="form" />
+                    <ComboBoxItem Content="Dashboard Tiles" Tag="dashboard" />
+                    <ComboBoxItem Content="Image Gallery" Tag="gallery" />
+                </ComboBox>
+                <Button x:Name="RunButton" Content="Run"
+                        Classes="accent" VerticalAlignment="Center"
+                        Width="80" HorizontalContentAlignment="Center" />
+                <Button x:Name="ClearButton" Content="Clear"
+                        VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Split: Editor | Preview -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="300" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="*" MinWidth="300" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Code editor -->
+            <Border Grid.Column="0" Classes="editorPanel">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Editor header -->
+                    <Border Grid.Row="0" Padding="16,10"
+                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="XAML Editor" FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <CheckBox x:Name="AutoRunCheck" Content="Auto-run"
+                                          IsChecked="True" VerticalAlignment="Center" />
+                                <CheckBox x:Name="WrapNamespacesCheck" Content="Auto-wrap namespaces"
+                                          IsChecked="True" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Code input -->
+                    <TextBox Grid.Row="1" x:Name="CodeEditor"
+                             Classes="codeEditor"
+                             Watermark="Type or paste XAML here..."
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+                    <!-- Error bar -->
+                    <Border Grid.Row="2" x:Name="ErrorBar"
+                            Padding="12,8" IsVisible="False"
+                            Background="#33FF0000"
+                            CornerRadius="0,0,8,8">
+                        <TextBlock x:Name="ErrorText"
+                                   FontFamily="Cascadia Code,Consolas,monospace"
+                                   FontSize="12" Foreground="#FFFF6B6B"
+                                   TextWrapping="Wrap" MaxLines="4" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Splitter -->
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"
+                          Background="Transparent" />
+
+            <!-- Right: Preview -->
+            <Border Grid.Column="2" Classes="previewPanel">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Preview header -->
+                    <Border Grid.Row="0" Padding="16,10"
+                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Live Preview" FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                            <TextBlock x:Name="PreviewStatus" Grid.Column="1"
+                                       FontSize="12" Opacity="0.6"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Preview area -->
+                    <ScrollViewer Grid.Row="1" Padding="16"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+                        <ContentControl x:Name="PreviewHost"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" />
+                    </ScrollViewer>
+
+                    <!-- Empty state -->
+                    <StackPanel x:Name="EmptyState" Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsVisible="True">
+                        <ui:SymbolIcon Symbol="Code" FontSize="48"
+                                       Opacity="0.3"
+                                       HorizontalAlignment="Center" />
+                        <TextBlock Text="Write XAML and click Run"
+                                   FontSize="16" Opacity="0.4"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,12,0,0" />
+                        <TextBlock Text="or enable Auto-run to see live results"
+                                   FontSize="13" Opacity="0.3"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
